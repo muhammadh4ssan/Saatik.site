@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TikTok Photo Downloader - Save Slideshow Images - Saatik</title>
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','dark')}</script>
+<meta name="description" content="Download TikTok photos and slideshow images in original quality. Save one photo or all of them for free.">
+<link rel="canonical" href="https://saatik.site/tiktok-photo-downloader">
+<link rel="alternate" hreflang="en" href="https://saatik.site/tiktok-photo-downloader">
+<link rel="alternate" hreflang="ur" href="https://saatik.site/ur/tiktok-photo-downloader">
+<link rel="alternate" hreflang="hi" href="https://saatik.site/hi/tiktok-photo-downloader">
+<link rel="alternate" hreflang="ar" href="https://saatik.site/ar/tiktok-photo-downloader">
+<link rel="alternate" hreflang="x-default" href="https://saatik.site/tiktok-photo-downloader">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Saatik">
+<meta property="og:title" content="TikTok Photo Downloader - Save Slideshow Images - Saatik">
+<meta property="og:description" content="Download TikTok photos and slideshow images in original quality. Save one photo or all of them for free.">
+<meta property="og:url" content="https://saatik.site/tiktok-photo-downloader">
+<meta property="og:image" content="https://saatik.site/og-image.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#080812">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/style.css">
+<script data-cfasync="false" src="https://bellnewyork.org/14/8d37b526359a658b081f7a83ab8ddfec"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, it is free. No sign-up or app needed."}}, {"@type": "Question", "name": "Does it work on iPhone, Android and PC?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It works in any modern browser on iPhone, Android, Windows and Mac."}}, {"@type": "Question", "name": "How do I download photos from a TikTok slideshow?", "acceptedAnswer": {"@type": "Answer", "text": "Paste the link of the photo post above and tap Download. Tap any picture to save it, or use Download all (ZIP) to get every picture in one file."}}, {"@type": "Question", "name": "How does Download all (ZIP) work?", "acceptedAnswer": {"@type": "Answer", "text": "It gathers all pictures of the post into one ZIP file in your browser. Larger posts can take a few seconds. Open the ZIP on your phone or computer to find the pictures."}}]}</script>
+</head>
+<body>
+<div class="orb o1"></div><div class="orb o2"></div>
+<main class="wrap">
+  <div class="top">
+    <nav class="langs" aria-label="Language"><a href="/tiktok-photo-downloader" hreflang="en" lang="en" aria-current="page">English</a><a href="/ur/tiktok-photo-downloader" hreflang="ur" lang="ur">اردو</a><a href="/hi/tiktok-photo-downloader" hreflang="hi" lang="hi">हिन्दी</a><a href="/ar/tiktok-photo-downloader" hreflang="ar" lang="ar">العربية</a></nav>
+    <button class="tbtn" id="theme" type="button" aria-label="Theme"></button>
+  </div>
+  <nav class="tools" aria-label="Tools"><a href="/">TikTok Video Downloader</a><a href="/tiktok-mp3-downloader">TikTok MP3 Converter</a><a href="/tiktok-photo-downloader" aria-current="page">TikTok Photo Downloader</a></nav>
+  <h1>TikTok photo downloader</h1>
+  <p class="lead">Paste a TikTok photo post link and save every picture.</p>
+  <ul class="chips"><li>Free</li><li>No sign-up</li><li>HD when available</li><li>Video · MP3 · Photos</li></ul>
+
+  <div class="ad" id="ad-top"></div>
+
+  <section class="glass box">
+    <div class="in">
+      <input id="url" dir="auto" type="url" inputmode="url" placeholder="Paste TikTok link here" aria-label="Paste TikTok link here" autocomplete="off">
+      <button class="btn" id="paste" type="button">Paste</button>
+    </div>
+    <button class="btn go" id="go" type="button">Download</button>
+    <div id="msg" role="status"></div>
+  </section>
+
+  <div class="ad has" id="ad-box"><script async="async" data-cfasync="false" src="https://bellnewyork.org/21/8ed766898699218974b651a6d2fcd131"></script>
+<div id="container-8ed766898699218974b651a6d2fcd131"></div></div>
+
+  <section class="glass res" id="res" hidden>
+    <img id="cover" alt="" referrerpolicy="no-referrer">
+    <div class="meta">
+      <b id="title"></b>
+      <span id="author"></span>
+      <div class="acts">
+        <a class="btn main" id="b-hd" href="#"></a>
+        <a class="btn" id="b-sd" href="#"></a>
+        <a class="btn" id="b-mp3" href="#"></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="glass photos" id="photos" hidden>
+    <div class="ph-head"><b id="ph-count"></b><button class="btn main" id="b-all" type="button"></button></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="glass how">
+    <h2>How it works</h2>
+    <ol><li>Open TikTok, tap Share, then Copy link.</li><li>Paste the link in the box above.</li><li>Tap Download and choose video, MP3 or photos.</li></ol>
+  </section>
+
+  <section class="glass about">
+    <h2>About this tool</h2>
+    <p>TikTok photo posts and slideshows show several pictures in one post. This TikTok photo downloader lets you save a single picture or all of them at once as a ZIP file. Paste the link of the photo post, tap Download, then tap a picture or choose Download all (ZIP). Pictures are saved in the original size the post provides.</p>
+  </section>
+
+  <section class="glass faq">
+    <h2>Frequently asked questions</h2>
+    <details><summary>Is it free?</summary><p>Yes, it is free. No sign-up or app needed.</p></details><details><summary>Does it work on iPhone, Android and PC?</summary><p>Yes. It works in any modern browser on iPhone, Android, Windows and Mac.</p></details><details><summary>How do I download photos from a TikTok slideshow?</summary><p>Paste the link of the photo post above and tap Download. Tap any picture to save it, or use Download all (ZIP) to get every picture in one file.</p></details><details><summary>How does Download all (ZIP) work?</summary><p>It gathers all pictures of the post into one ZIP file in your browser. Larger posts can take a few seconds. Open the ZIP on your phone or computer to find the pictures.</p></details>
+  </section>
+
+  <div class="ad has" id="ad-bottom"><script>
+  atOptions = {
+    'key' : 'eb9ec591e4f619c1a9107a47f216fab4',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://bellnewyork.org/22/eb9ec591e4f619c1a9107a47f216fab4"></script></div>
+
+  <footer>For personal use only. Respect the creator&#x27;s rights. This site is not affiliated with TikTok.<br><a href="/about">About</a> &middot; <a href="/contact">Contact</a> &middot; <a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms of Use</a></footer>
+</main>
+
+<script>window.T={"first": "Paste a TikTok link first.", "getting": "Getting your file...", "clip": "Allow clipboard access, or paste the link manually.", "hd": "Download HD video", "sd": "Download video", "mp3": "Download MP3", "all": "Download all (ZIP)", "photo": "photo", "photos": "photos", "save": "Save", "toLight": "Switch to light theme", "toDark": "Switch to dark theme", "err": {"invalid": "Paste a valid TikTok link.", "notfound": "Post not found. It may be private or removed.", "busy": "The service is busy. Try again in a moment.", "generic": "Something went wrong."}, "zipping": "Preparing ZIP"};</script>
+<script src="/app.js"></script>
+</body>
+</html>
