@@ -7,13 +7,19 @@ const { makeZip } = require('./zip');
 const app = express();
 app.set('trust proxy', 1); // Railway sits behind a proxy
 
-// Send the old subdomain and www to the main domain (permanent redirect for SEO)
+// One address per page, for SEO: send other hosts and .html paths to the main domain
 const MAIN = 'saatik.site';
 const OLD = ['saatiktokvideodownloader.hassanwebdev.site', 'www.saatik.site'];
 app.use((req, res, next) => {
-  if (OLD.includes(req.hostname)) return res.redirect(301, 'https://' + MAIN + req.originalUrl);
+  const host = req.hostname || '';
+  const q = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
+  let path = req.path;
+  if (/\.html$/.test(path)) path = path.replace(/index\.html$/, '').replace(/\.html$/, '') || '/';
+  const wrongHost = OLD.includes(host) || host.endsWith('.up.railway.app');
+  if (wrongHost || path !== req.path) return res.redirect(301, 'https://' + MAIN + path + q);
   next();
 });
+
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 app.use(express.json({ limit: '50kb' }));
 const limiter = limit => rateLimit({ windowMs: 60000, limit, standardHeaders: true, legacyHeaders: false, message: { code: 'busy', error: 'Too many requests. Try again in a minute.' } });
@@ -41,12 +47,49 @@ async function safeFetch(url, hops = 0) {
   return r;
 }
 
+// --- lookup helper: one request at a time (>=1.1s apart), retry, 10-minute cache, real errors in the logs ---
+const cache = new Map();
+let lastCall = 0, chain = Promise.resolve();
+function throttled(fn) {
+  const run = chain.then(async () => {
+    const wait = Math.max(0, lastCall + 1100 - Date.now());
+    if (wait) await new Promise(r => setTimeout(r, wait));
+    lastCall = Date.now();
+    return fn();
+  });
+  chain = run.catch(() => {});
+  return run;
+}
+async function lookup(url) {
+  const hit = cache.get(url);
+  if (hit && Date.now() - hit.t < 600000) return hit.d;
+  for (let i = 0; i < 2; i++) {
+    try {
+      const r = await throttled(() => fetch(API + encodeURIComponent(url), {
+        signal: AbortSignal.timeout(15000),
+        headers: { 'user-agent': 'Mozilla/5.0 (compatible; SaatikBot/1.0)' }
+      }));
+      const text = await r.text();
+      let j;
+      try { j = JSON.parse(text); } catch { console.error('lookup: not JSON, status', r.status, text.slice(0, 120)); continue; }
+      if (j.data) {
+        cache.set(url, { t: Date.now(), d: j.data });
+        if (cache.size > 500) cache.delete(cache.keys().next().value);
+        return j.data;
+      }
+      console.error('lookup: provider said', j.code, j.msg);
+      if (/limit|busy|try again/i.test(String(j.msg || ''))) continue;
+      return null; // post really not available
+    } catch (e) { console.error('lookup: request failed:', e.message); }
+  }
+  throw new Error('upstream unavailable');
+}
+
 app.get('/api/info', async (req, res) => {
   const url = String(req.query.url || '').trim();
   if (!isTikTok(url)) return res.status(400).json({ code: 'invalid', error: 'Paste a valid TikTok link.' });
   try {
-    const r = await fetch(API + encodeURIComponent(url), { signal: AbortSignal.timeout(15000) });
-    const d = (await r.json()).data;
+    const d = await lookup(url);
     const images = d && Array.isArray(d.images) ? d.images.map(abs).filter(Boolean) : [];
     if (!d || (!d.play && !images.length)) return res.status(404).json({ code: 'notfound', error: 'Post not found. It may be private or removed.' });
     res.json({
